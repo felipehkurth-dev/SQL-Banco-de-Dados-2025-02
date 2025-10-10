@@ -1,0 +1,60 @@
+-- Tabela: professores
+CREATE TABLE professores (
+    id_p INT,
+    nome VARCHAR(50),
+    cpf VARCHAR(11),
+    telefone VARCHAR(11),
+    CONSTRAINT pk_professores PRIMARY KEY (id_p)
+);
+
+-- Tabela: telefones (relacionada a professores)
+CREATE TABLE telefones (
+    sequencia INT,
+    ddd VARCHAR(3),
+    numero VARCHAR(9),
+    id_professor INT,
+    CONSTRAINT pk_telefones PRIMARY KEY (id_professor, sequencia),
+    CONSTRAINT fk_telefones_professores FOREIGN KEY (id_professor) REFERENCES professores (id_p)
+);
+
+-- Tabela: cursos (relacionada a professores)
+CREATE TABLE cursos (
+    id_curso INT,
+    nome VARCHAR(50),
+    especificacao TEXT,
+    duracao INT,
+    preco DECIMAL(7,2),
+    professor_id INT,
+    CONSTRAINT pk_cursos PRIMARY KEY (id_curso),
+    CONSTRAINT fk_cursos_professores FOREIGN KEY (professor_id) REFERENCES professores (id_p)
+);
+
+-- Tabela: endereco
+CREATE TABLE endereco (
+    id_endereco INT PRIMARY KEY,
+    rua VARCHAR(100),
+    numero VARCHAR(10),
+    cidade VARCHAR(50),
+    estado VARCHAR(2)
+);
+
+-- Tabela: alunos (relacionada a endereco)
+CREATE TABLE alunos (
+    id_aluno INT,
+    nome VARCHAR(50),
+    telefone VARCHAR(11),
+    cpf VARCHAR(11),
+    endereco_id INT,
+    CONSTRAINT pk_alunos PRIMARY KEY (id_aluno),
+    CONSTRAINT fk_alunos_endereco FOREIGN KEY (endereco_id) REFERENCES endereco (id_endereco)
+);
+
+-- Tabela: matriculas (N:N entre alunos e cursos)
+CREATE TABLE matriculas (
+    aluno_id INT,
+    curso_id INT,
+    matricula VARCHAR(10),
+    CONSTRAINT pk_matriculas PRIMARY KEY (aluno_id, curso_id, matricula),
+    CONSTRAINT fk_matricula_aluno FOREIGN KEY (aluno_id) REFERENCES alunos (id_aluno),
+    CONSTRAINT fk_matricula_curso FOREIGN KEY (curso_id) REFERENCES cursos (id_curso)
+);
