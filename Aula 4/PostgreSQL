@@ -1,0 +1,20 @@
+DROP TABLE cursos;
+drop table professores;
+
+
+CREATE TABLE professores(
+	cod SERIAL,
+  	nome varchar(50),
+  	salario DECIMAL(10,2),
+  	CONSTRAINT pk_professores PRIMARY key (cod)
+);
+create table cursos(
+	cod Serial,
+  	nome varchar(50),
+  	valor DECIMAL(7,2),
+  	carga_horaria int,
+  	cod_prof int,
+  	CoNSTRAINT pk_cursos PRIMARY KEY(cod),
+  	CONSTRAINT fk_cursos_professores FOREIGN key (cod_prof) 
+  	REFERENCES professores(cod)  on DELETE RESTRICT
+  );
