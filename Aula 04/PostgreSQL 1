@@ -1,0 +1,10 @@
+INSERT INTO professores (nome, salario) VALUES ('Renato',3000), ('Giuliano',4000), ('Edson',5000);
+
+insert into cursos (nome, valor, carga_horaria, cod_prof) 
+VALUES ('Bancos de dados', 1500, 10, 1),
+('Logica', 2500, 12, 2),
+('UX', 2000, 15, 3),
+('Prog Web', 2000, 6, 2);
+
+Select * from professores;
+select * from cursos;
